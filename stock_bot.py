@@ -78,35 +78,13 @@ def symbol_state(state, symbol):
     return value
 
 
-def send_message(text, results):
-    keyboard = []
-
-    for item in results:
-        symbol = item["symbol"]
-
-        chart_url = (
-            "https://www.tradingview.com/chart/"
-            f"?symbol={symbol}"
-        )
-
-        keyboard.append(
-            [
-                {
-                    "text": f"📈 {symbol} 차트",
-                    "url": chart_url
-                }
-            ]
-        )
-
+def send_message(text):
     response = requests.post(
         f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-        json={
+        data={
             "chat_id": CHAT_ID,
             "text": text,
-            "disable_web_page_preview": True,
-            "reply_markup": {
-                "inline_keyboard": keyboard
-            }
+            "disable_web_page_preview": True
         },
         timeout=30
     )
@@ -300,6 +278,7 @@ def atr(data, period=20):
         return 0.0
 
     return float(value)
+    
 def download_batch(symbols):
     return yf.download(
         tickers=symbols,
@@ -835,8 +814,7 @@ def main():
             )
 
         send_message(
-            format_message(results),
-            results
+            format_message(results)
         )
 
         print(
