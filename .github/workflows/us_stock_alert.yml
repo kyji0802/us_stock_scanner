@@ -2,8 +2,8 @@ name: US Stock Scanner
 
 on:
   schedule:
-    # 평일 UTC 기준 13:07~21:52
-    # 약 15분마다 실행
+    # 평일 UTC 13:07~21:52
+    # 약 15분 간격
     - cron: "7,22,37,52 13-21 * * 1-5"
 
   workflow_dispatch:
@@ -46,8 +46,11 @@ jobs:
           if [ -f signal_state.json ]; then
             git config user.name "github-actions"
             git config user.email "github-actions@github.com"
+
             git add signal_state.json
-            git commit -m "Update US stock signal state" || echo "No state changes"
+            git commit -m "Update US turtle signal state" || echo "No state changes"
+
+            git pull --rebase origin main || true
             git push
           else
             echo "signal_state.json not found"
