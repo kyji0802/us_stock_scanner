@@ -1,0 +1,183 @@
+{
+  "PAGP": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "ACRS": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306348+00:00",
+    "position": null
+  },
+  "VIR": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "PRVA": {
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T12:31:10.306295+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 27.77,
+      "last_entry": 27.77,
+      "atr": 0.743530335273176,
+      "atr_stop": 26.282939329453647
+    }
+  },
+  "NTSK": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "WT": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "ONB": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306315+00:00",
+    "position": null
+  },
+  "PBF": {
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T12:31:10.306285+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 53.31,
+      "last_entry": 53.31,
+      "atr": 2.5032702383374383,
+      "atr_stop": 48.303459523325124
+    }
+  },
+  "CRVS": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "TYRA": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "SVC": {
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T12:31:10.306303+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 8.75,
+      "last_entry": 8.75,
+      "atr": 0.4325222793421572,
+      "atr_stop": 7.884955441315686
+    }
+  },
+  "WK": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "AEG": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306338+00:00",
+    "position": null
+  },
+  "ELVN": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306342+00:00",
+    "position": null
+  },
+  "HR": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306311+00:00",
+    "position": null
+  },
+  "PTON": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306335+00:00",
+    "position": null
+  },
+  "BBY": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306322+00:00",
+    "position": null
+  },
+  "PD": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306319+00:00",
+    "position": null
+  },
+  "NRIX": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306354+00:00",
+    "position": null
+  },
+  "FIBK": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306326+00:00",
+    "position": null
+  },
+  "ABEO": {
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T12:31:10.306255+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 7.12,
+      "last_entry": 7.12,
+      "atr": 0.28252863515275534,
+      "atr_stop": 6.554942729694489
+    }
+  },
+  "FBP": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306333+00:00",
+    "position": null
+  },
+  "EWTX": {
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T12:31:10.306291+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 48.35,
+      "last_entry": 48.35,
+      "atr": 2.42733154369249,
+      "atr_stop": 43.49533691261502
+    }
+  },
+  "VOYA": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306345+00:00",
+    "position": null
+  },
+  "PINS": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306329+00:00",
+    "position": null
+  },
+  "GPRE": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "BHVN": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306351+00:00",
+    "position": null
+  },
+  "DBRG": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T12:31:10.306306+00:00",
+    "position": null
+  },
+  "DK": {
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T12:31:10.306299+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 56.09,
+      "last_entry": 56.09,
+      "atr": 2.468368234656402,
+      "atr_stop": 51.1532635306872
+    }
+  }
+}
