@@ -1,11 +1,19 @@
 name: US Stock Scanner
 
 on:
+  schedule:
+    # 미국 동부시간 기준 장중 실행용
+    # UTC 월~금 13:35~20:55, 5분마다
+    - cron: "*/5 13-20 * * 1-5"
+
   workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -25,3 +33,11 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
         run: python stock_bot.py
+
+      - name: Save signal state
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add signal_state.json
+          git commit -m "Update US stock signal state" || echo "No state changes"
+          git push
