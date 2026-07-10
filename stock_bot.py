@@ -41,7 +41,6 @@ OTHER_URL = (
     "SymDir/otherlisted.txt"
 )
 
-
 def load_state():
     if not STATE_FILE.exists():
         return {}
@@ -79,13 +78,35 @@ def symbol_state(state, symbol):
     return value
 
 
-def send_message(text):
+def send_message(text, results):
+    keyboard = []
+
+    for item in results:
+        symbol = item["symbol"]
+
+        chart_url = (
+            "https://www.tradingview.com/chart/"
+            f"?symbol={symbol}"
+        )
+
+        keyboard.append(
+            [
+                {
+                    "text": f"📈 {symbol} 차트",
+                    "url": chart_url
+                }
+            ]
+        )
+
     response = requests.post(
         f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-        data={
+        json={
             "chat_id": CHAT_ID,
             "text": text,
-            "disable_web_page_preview": True
+            "disable_web_page_preview": True,
+            "reply_markup": {
+                "inline_keyboard": keyboard
+            }
         },
         timeout=30
     )
@@ -97,7 +118,6 @@ def send_message(text):
     )
 
     response.raise_for_status()
-
 
 def clean_symbol(value):
     symbol = str(value).strip().upper().replace(".", "-")
@@ -815,7 +835,8 @@ def main():
             )
 
         send_message(
-            format_message(results)
+            format_message(results),
+            results
         )
 
         print(
