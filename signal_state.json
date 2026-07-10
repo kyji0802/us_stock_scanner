@@ -21,8 +21,8 @@
       "units": 1,
       "first_entry": 27.77,
       "last_entry": 27.77,
-      "atr": 0.743530335273176,
-      "atr_stop": 26.282939329453647
+      "atr": 0.7383538833593707,
+      "atr_stop": 26.293292233281257
     }
   },
   "NTSK": {
@@ -47,8 +47,8 @@
       "units": 1,
       "first_entry": 53.31,
       "last_entry": 53.31,
-      "atr": 2.5032702383374383,
-      "atr_stop": 48.303459523325124
+      "atr": 2.4711067569381444,
+      "atr_stop": 48.36778648612371
     }
   },
   "CRVS": {
@@ -68,8 +68,8 @@
       "units": 1,
       "first_entry": 8.75,
       "last_entry": 8.75,
-      "atr": 0.4325222793421572,
-      "atr_stop": 7.884955441315686
+      "atr": 0.4193961691897466,
+      "atr_stop": 7.911207661620507
     }
   },
   "WK": {
@@ -98,9 +98,15 @@
     "position": null
   },
   "BBY": {
-    "last_stage": "준비",
-    "last_time": "2026-07-10T12:40:57.734342+00:00",
-    "position": null
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T15:36:44.495546+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 82.13,
+      "last_entry": 82.13,
+      "atr": 2.458044494880836,
+      "atr_stop": 77.21391101023832
+    }
   },
   "PD": {
     "last_stage": "준비",
@@ -124,7 +130,7 @@
       "units": 1,
       "first_entry": 7.12,
       "last_entry": 7.12,
-      "atr": 0.28252863515275534,
+      "atr": 0.28915220148776893,
       "atr_stop": 6.554942729694489
     }
   },
@@ -140,7 +146,7 @@
       "units": 1,
       "first_entry": 48.35,
       "last_entry": 48.35,
-      "atr": 2.42733154369249,
+      "atr": 2.52396480629058,
       "atr_stop": 43.49533691261502
     }
   },
@@ -176,8 +182,8 @@
       "units": 1,
       "first_entry": 56.09,
       "last_entry": 56.09,
-      "atr": 2.468368234656402,
-      "atr_stop": 51.1532635306872
+      "atr": 2.441449838182371,
+      "atr_stop": 51.20710032363526
     }
   },
   "CBSH": {
@@ -197,7 +203,7 @@
       "units": 1,
       "first_entry": 41.09,
       "last_entry": 41.09,
-      "atr": 1.5205683751826984,
+      "atr": 1.529539803835673,
       "atr_stop": 38.04886324963461
     }
   },
@@ -208,8 +214,8 @@
       "units": 1,
       "first_entry": 57.88,
       "last_entry": 57.88,
-      "atr": 1.1734303526111511,
-      "atr_stop": 55.5331392947777
+      "atr": 1.1460088349805935,
+      "atr_stop": 55.58798233003881
     }
   },
   "CALX": {
@@ -229,8 +235,69 @@
       "units": 1,
       "first_entry": 43.1,
       "last_entry": 43.1,
-      "atr": 2.466233836047944,
-      "atr_stop": 38.16753232790411
+      "atr": 2.432422190021914,
+      "atr_stop": 38.235155619956174
     }
+  },
+  "FIVN": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T15:36:44.495552+00:00",
+    "position": null
+  },
+  "PHAT": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "PAGS": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "POR": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T15:36:44.495549+00:00",
+    "position": null
+  },
+  "UPBD": {
+    "last_stage": "BUY1",
+    "last_time": "2026-07-10T15:36:44.495529+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 21.67,
+      "last_entry": 21.67,
+      "atr": 0.8842770005127173,
+      "atr_stop": 19.901445998974566
+    }
+  },
+  "XP": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "DOLE": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "UA": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T15:36:44.495554+00:00",
+    "position": null
+  },
+  "BAC": {
+    "last_stage": "준비",
+    "last_time": "2026-07-10T15:36:44.495557+00:00",
+    "position": null
+  },
+  "BILL": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "RBNE": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
   }
 }
