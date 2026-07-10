@@ -5,6 +5,7 @@ import time
 from datetime import datetime, timezone
 from io import StringIO
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -33,15 +34,12 @@ BATCH_SIZE = 80
 
 MIN_PRICE = 5.0
 MAX_PRICE = 100.0
-
 MIN_AVG_VOLUME = 1_000_000
 
+# 이전 20일 고점까지 2% 이내면 준비
 READY_DISTANCE_PERCENT = 2.0
 
-# 같은 단계 재알림 제한
-ALERT_COOLDOWN_HOURS = 12
-
-# 한 번 실행할 때 최대 표시 종목 수
+# 한 번 실행할 때 최대 알림 종목 수
 MAX_ALERTS_PER_RUN = 30
 
 # 터틀 설정
@@ -63,7 +61,7 @@ OTHER_LIST_URL = (
 
 
 # =========================================================
-# 상태 저장
+# 상태 파일
 # =========================================================
 def load_state():
     if not STATE_FILE.exists():
@@ -76,8 +74,8 @@ def load_state():
         if isinstance(state, dict):
             return state
 
-    except (OSError, json.JSONDecodeError):
-        pass
+    except (OSError, json.JSONDecodeError) as error:
+        print("상태 파일 읽기 오류:", error)
 
     return {}
 
@@ -93,16 +91,16 @@ def save_state(state):
 
 
 def get_symbol_state(state, symbol):
-    old = state.get(symbol)
+    symbol_state = state.get(symbol)
 
-    if not isinstance(old, dict):
-        old = {}
+    if not isinstance(symbol_state, dict):
+        symbol_state = {}
 
-    old.setdefault("last_alert_stage", "")
-    old.setdefault("last_alert_time", "")
-    old.setdefault("position", None)
+    symbol_state.setdefault("last_alert_stage", "")
+    symbol_state.setdefault("last_alert_time", "")
+    symbol_state.setdefault("position", None)
 
-    return old
+    return symbol_state
 
 
 def save_symbol_state(state, symbol, symbol_state):
@@ -113,10 +111,7 @@ def save_symbol_state(state, symbol, symbol_state):
 # 텔레그램
 # =========================================================
 def send_telegram_message(text):
-    url = (
-        f"https://api.telegram.org/"
-        f"bot{BOT_TOKEN}/sendMessage"
-    )
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
     response = requests.post(
         url,
@@ -128,17 +123,12 @@ def send_telegram_message(text):
         timeout=30
     )
 
-    print(
-        "Telegram:",
-        response.status_code,
-        response.text
-    )
-
+    print("Telegram:", response.status_code, response.text)
     response.raise_for_status()
 
 
 # =========================================================
-# 미국 종목 목록
+# 종목 목록
 # =========================================================
 def clean_symbol(symbol):
     symbol = str(symbol).strip().upper()
@@ -153,18 +143,12 @@ def clean_symbol(symbol):
     }:
         return None
 
-    # BRK.B → BRK-B 형식으로 변환
+    # BRK.B 형식을 yfinance용 BRK-B로 변경
     symbol = symbol.replace(".", "-")
 
-    blocked_chars = [
-        "$",
-        "^",
-        "/",
-        "\\",
-        " "
-    ]
+    blocked_characters = ["$", "^", "/", "\\", " "]
 
-    if any(char in symbol for char in blocked_chars):
+    if any(character in symbol for character in blocked_characters):
         return None
 
     if len(symbol) > 8:
@@ -195,21 +179,15 @@ def bad_security_name(name):
         "BOND"
     ]
 
-    return any(
-        word in name
-        for word in blocked_words
-    )
+    return any(word in name for word in blocked_words)
 
 
 def get_nasdaq_symbols():
     response = requests.get(
         NASDAQ_LIST_URL,
-        headers={
-            "User-Agent": "Mozilla/5.0"
-        },
+        headers={"User-Agent": "Mozilla/5.0"},
         timeout=30
     )
-
     response.raise_for_status()
 
     data = pd.read_csv(
@@ -220,26 +198,18 @@ def get_nasdaq_symbols():
     symbols = []
 
     for _, row in data.iterrows():
-        symbol = clean_symbol(
-            row.get("Symbol", "")
-        )
+        symbol = clean_symbol(row.get("Symbol", ""))
 
         if not symbol:
             continue
 
-        if str(
-            row.get("Test Issue", "N")
-        ).upper() == "Y":
+        if str(row.get("Test Issue", "N")).upper() == "Y":
             continue
 
-        if str(
-            row.get("ETF", "N")
-        ).upper() == "Y":
+        if str(row.get("ETF", "N")).upper() == "Y":
             continue
 
-        if bad_security_name(
-            row.get("Security Name", "")
-        ):
+        if bad_security_name(row.get("Security Name", "")):
             continue
 
         symbols.append(symbol)
@@ -250,12 +220,9 @@ def get_nasdaq_symbols():
 def get_other_symbols():
     response = requests.get(
         OTHER_LIST_URL,
-        headers={
-            "User-Agent": "Mozilla/5.0"
-        },
+        headers={"User-Agent": "Mozilla/5.0"},
         timeout=30
     )
-
     response.raise_for_status()
 
     data = pd.read_csv(
@@ -266,26 +233,18 @@ def get_other_symbols():
     symbols = []
 
     for _, row in data.iterrows():
-        symbol = clean_symbol(
-            row.get("ACT Symbol", "")
-        )
+        symbol = clean_symbol(row.get("ACT Symbol", ""))
 
         if not symbol:
             continue
 
-        if str(
-            row.get("Test Issue", "N")
-        ).upper() == "Y":
+        if str(row.get("Test Issue", "N")).upper() == "Y":
             continue
 
-        if str(
-            row.get("ETF", "N")
-        ).upper() == "Y":
+        if str(row.get("ETF", "N")).upper() == "Y":
             continue
 
-        if bad_security_name(
-            row.get("Security Name", "")
-        ):
+        if bad_security_name(row.get("Security Name", "")):
             continue
 
         symbols.append(symbol)
@@ -299,30 +258,18 @@ def symbol_sort_key(symbol):
     ).hexdigest()
 
 
-def get_stock_universe():
+def get_stock_universe(state):
     symbols = []
 
     try:
-        symbols.extend(
-            get_nasdaq_symbols()
-        )
-
+        symbols.extend(get_nasdaq_symbols())
     except Exception as error:
-        print(
-            "NASDAQ 목록 오류:",
-            error
-        )
+        print("NASDAQ 목록 오류:", error)
 
     try:
-        symbols.extend(
-            get_other_symbols()
-        )
-
+        symbols.extend(get_other_symbols())
     except Exception as error:
-        print(
-            "NYSE/AMEX 목록 오류:",
-            error
-        )
+        print("NYSE/AMEX 목록 오류:", error)
 
     symbols = sorted(
         set(symbols),
@@ -334,11 +281,27 @@ def get_stock_universe():
             "미국 종목 목록을 가져오지 못했습니다."
         )
 
-    return symbols[:MAX_SCAN]
+    selected_symbols = symbols[:MAX_SCAN]
+
+    # 기존 BUY1~BUY4 상태 종목은 1,000개 목록에서 빠져도 계속 감시
+    position_symbols = []
+
+    for symbol, symbol_state in state.items():
+        if (
+            isinstance(symbol_state, dict)
+            and symbol_state.get("position")
+        ):
+            position_symbols.append(symbol)
+
+    return list(
+        dict.fromkeys(
+            selected_symbols + position_symbols
+        )
+    )
 
 
 # =========================================================
-# 지표 계산
+# 보조 지표
 # =========================================================
 def calculate_rsi(close, period=14):
     delta = close.diff()
@@ -363,10 +326,7 @@ def calculate_rsi(close, period=14):
         float("nan")
     )
 
-    rsi = 100 - (
-        100 / (1 + rs)
-    )
-
+    rsi = 100 - (100 / (1 + rs))
     value = rsi.iloc[-1]
 
     if pd.isna(value):
@@ -376,6 +336,9 @@ def calculate_rsi(close, period=14):
 
 
 def calculate_atr(data, period=20):
+    if data.empty or len(data) < period + 1:
+        return 0.0
+
     high = data["High"].astype(float)
     low = data["Low"].astype(float)
     close = data["Close"].astype(float)
@@ -391,20 +354,23 @@ def calculate_atr(data, period=20):
         axis=1
     ).max(axis=1)
 
-    atr_series = true_range.rolling(
-        period
+    # Wilder 방식 ATR
+    atr_series = true_range.ewm(
+        alpha=1 / period,
+        min_periods=period,
+        adjust=False
     ).mean()
 
     atr_value = atr_series.iloc[-1]
 
-    if pd.isna(atr_value):
+    if pd.isna(atr_value) or atr_value <= 0:
         return 0.0
 
     return float(atr_value)
 
 
 # =========================================================
-# yfinance 일봉 일괄 다운로드
+# yfinance 일봉 다운로드
 # =========================================================
 def download_batch(symbols):
     return yf.download(
@@ -419,11 +385,7 @@ def download_batch(symbols):
     )
 
 
-def extract_symbol_data(
-    downloaded,
-    symbol,
-    symbol_count
-):
+def extract_symbol_data(downloaded, symbol, symbol_count):
     if downloaded.empty:
         return pd.DataFrame()
 
@@ -431,24 +393,12 @@ def extract_symbol_data(
         if symbol_count == 1:
             frame = downloaded.copy()
 
-        elif isinstance(
-            downloaded.columns,
-            pd.MultiIndex
-        ):
-            first_level = (
-                downloaded.columns
-                .get_level_values(0)
-            )
-
-            second_level = (
-                downloaded.columns
-                .get_level_values(1)
-            )
+        elif isinstance(downloaded.columns, pd.MultiIndex):
+            first_level = downloaded.columns.get_level_values(0)
+            second_level = downloaded.columns.get_level_values(1)
 
             if symbol in first_level:
-                frame = downloaded[
-                    symbol
-                ].copy()
+                frame = downloaded[symbol].copy()
 
             elif symbol in second_level:
                 frame = downloaded.xs(
@@ -463,7 +413,7 @@ def extract_symbol_data(
         else:
             return pd.DataFrame()
 
-        required = [
+        required_columns = [
             "Open",
             "High",
             "Low",
@@ -473,17 +423,18 @@ def extract_symbol_data(
 
         if not all(
             column in frame.columns
-            for column in required
+            for column in required_columns
         ):
             return pd.DataFrame()
 
         frame = frame.dropna(
-            subset=required
+            subset=required_columns
         )
 
         return frame
 
-    except Exception:
+    except Exception as error:
+        print(symbol, "데이터 추출 오류:", error)
         return pd.DataFrame()
 
 
@@ -503,7 +454,6 @@ def get_finnhub_quote(symbol):
     )
 
     response.raise_for_status()
-
     data = response.json()
 
     current_price = float(
@@ -517,112 +467,84 @@ def get_finnhub_quote(symbol):
 
     return {
         "price": current_price,
-        "change": float(
-            data.get("d", 0) or 0
-        ),
-        "change_percent": float(
-            data.get("dp", 0) or 0
-        ),
-        "previous_close": float(
-            data.get("pc", 0) or 0
-        )
+        "change": float(data.get("d", 0) or 0),
+        "change_percent": float(data.get("dp", 0) or 0),
+        "previous_close": float(data.get("pc", 0) or 0)
     }
 
 
 # =========================================================
-# 일봉 1차 선별
+# 일봉 1차 분석
 # =========================================================
-def pre_analyze_symbol(
-    symbol,
-    data,
-    symbol_state
-):
+def pre_analyze_symbol(symbol, data, symbol_state):
     if data.empty or len(data) < 70:
         return None
 
     close = data["Close"].astype(float)
     volume = data["Volume"].astype(float)
 
-    daily_price = float(
-        close.iloc[-1]
-    )
+    daily_price = float(close.iloc[-1])
+    position = symbol_state.get("position")
 
-    if (
-        daily_price < MIN_PRICE
-        or daily_price > MAX_PRICE
-    ):
-        return None
+    # 신규 종목에만 가격 제한 적용
+    # 이미 BUY1 이상인 종목은 가격이 범위를 벗어나도 계속 감시
+    if not position:
+        if (
+            daily_price < MIN_PRICE
+            or daily_price > MAX_PRICE
+        ):
+            return None
 
-    ma20 = float(
-        close.tail(20).mean()
-    )
+    ma20 = float(close.tail(20).mean())
+    ma60 = float(close.tail(60).mean())
 
-    ma60 = float(
-        close.tail(60).mean()
-    )
-
+    # 고점과 저점 계산에서는 현재 진행 중인 일봉 제외
     prior_data = data.iloc[:-1]
 
     if len(prior_data) < 60:
         return None
 
     prior_20_high = float(
-        prior_data["High"]
-        .tail(20)
-        .max()
+        prior_data["High"].tail(20).max()
     )
 
     prior_10_low = float(
-        prior_data["Low"]
-        .tail(10)
-        .min()
+        prior_data["Low"].tail(10).min()
     )
 
     average_volume_20 = float(
-        prior_data["Volume"]
-        .tail(20)
-        .mean()
+        prior_data["Volume"].tail(20).mean()
     )
 
-    current_volume = float(
-        volume.iloc[-1]
-    )
+    current_volume = float(volume.iloc[-1])
 
     if average_volume_20 <= 0:
         return None
 
     volume_ratio = (
-        current_volume
-        / average_volume_20
+        current_volume / average_volume_20
     )
 
     rsi = calculate_rsi(close)
 
-    atr = calculate_atr(
-        prior_data,
+    # ATR은 현재까지 들어온 최신 일봉을 포함해 매번 새로 계산
+    current_atr = calculate_atr(
+        data,
         ATR_PERIOD
     )
 
-    if atr <= 0:
+    if current_atr <= 0:
         return None
 
+    trend_ok = ma20 > ma60
+
     distance_to_high = (
-        (
-            prior_20_high
-            - daily_price
-        )
+        (prior_20_high - daily_price)
         / prior_20_high
         * 100
     )
 
-    trend_ok = ma20 > ma60
-
-    position = symbol_state.get(
-        "position"
-    )
-
-    # 이미 BUY1 이상 보유 상태라면
-    # 거래량 조건과 무관하게 계속 감시
+    # 이미 진입 상태인 종목은 무조건 계속 확인
     if position:
         return {
             "symbol": symbol,
@@ -633,15 +555,12 @@ def pre_analyze_symbol(
             "ma60": ma60,
             "trend_ok": trend_ok,
             "rsi": rsi,
-            "atr": atr,
+            "atr": current_atr,
             "volume_ratio": volume_ratio
         }
 
-    # 신규 진입 후보는 평균 거래량 제한 적용
-    if (
-        average_volume_20
-        < MIN_AVG_VOLUME
-    ):
+    # 신규 진입 후보는 평균 거래량 조건 적용
+    if average_volume_20 < MIN_AVG_VOLUME:
         return None
 
     near_high = (
@@ -649,8 +568,6 @@ def pre_analyze_symbol(
         <= READY_DISTANCE_PERCENT
     )
 
-    # 신규 포지션이 없으면
-    # 고점 근처 종목만 실시간 확인
     if not near_high:
         return None
 
@@ -663,7 +580,7 @@ def pre_analyze_symbol(
         "ma60": ma60,
         "trend_ok": trend_ok,
         "rsi": rsi,
-        "atr": atr,
+        "atr": current_atr,
         "volume_ratio": volume_ratio
     }
 
@@ -683,20 +600,13 @@ def calculate_internal_score(
     if stage == "BUY1":
         score += 45
 
-    elif stage in {
-        "BUY2",
-        "BUY3",
-        "BUY4"
-    }:
+    elif stage in {"BUY2", "BUY3", "BUY4"}:
         score += 50
 
     elif stage == "준비":
         score += 30
 
-    elif stage in {
-        "ATR SELL",
-        "10D SELL"
-    }:
+    elif stage in {"ATR SELL", "10D SELL"}:
         score += 40
 
     if trend_ok:
@@ -706,10 +616,7 @@ def calculate_internal_score(
         score += 15
 
     elif (
-        stage in {
-            "ATR SELL",
-            "10D SELL"
-        }
+        stage in {"ATR SELL", "10D SELL"}
         and rsi < 45
     ):
         score += 15
@@ -726,53 +633,28 @@ def calculate_internal_score(
 # =========================================================
 # 최종 신호 판정
 # =========================================================
-def finalize_signal(
-    candidate,
-    symbol_state
-):
+def finalize_signal(candidate, symbol_state):
     symbol = candidate["symbol"]
-
-    quote = get_finnhub_quote(
-        symbol
-    )
+    quote = get_finnhub_quote(symbol)
 
     current_price = quote["price"]
-    previous_close = quote[
-        "previous_close"
-    ]
+    previous_close = quote["previous_close"]
 
-    if (
-        current_price < MIN_PRICE
-        or current_price > MAX_PRICE
-    ):
-        return None
+    prior_20_high = candidate["prior_20_high"]
+    prior_10_low = candidate["prior_10_low"]
 
-    prior_20_high = candidate[
-        "prior_20_high"
-    ]
-
-    prior_10_low = candidate[
-        "prior_10_low"
-    ]
-
-    trend_ok = candidate[
-        "trend_ok"
-    ]
-
+    trend_ok = candidate["trend_ok"]
     rsi = candidate["rsi"]
-    atr = candidate["atr"]
 
-    volume_ratio = candidate[
-        "volume_ratio"
-    ]
+    # 매 실행 시 새로 계산된 현재 ATR
+    current_atr = candidate["atr"]
 
-    position = symbol_state.get(
-        "position"
-    )
+    volume_ratio = candidate["volume_ratio"]
+    position = symbol_state.get("position")
 
-    # -----------------------------------------------------
-    # 이미 BUY1 이상 진입한 종목
-    # -----------------------------------------------------
+    # =====================================================
+    # 이미 BUY1 이상 진입한 상태
+    # =====================================================
     if position:
         units = int(
             position.get("units", 1)
@@ -792,44 +674,47 @@ def finalize_signal(
             )
         )
 
-        saved_atr = float(
-            position.get(
-                "atr",
-                atr
+        old_stop = float(
+            position.get("atr_stop", 0) or 0
+        )
+
+        # 최신 ATR 기준 손절가
+        new_calculated_stop = (
+            last_entry
+            - STOP_ATR * current_atr
+        )
+
+        # 손절가는 아래로 내려가지 않음
+        if old_stop > 0:
+            atr_stop_price = max(
+                old_stop,
+                new_calculated_stop
             )
-        )
+        else:
+            atr_stop_price = (
+                new_calculated_stop
+            )
 
-        if saved_atr <= 0:
-            saved_atr = atr
+        # 최신 ATR과 손절가를 상태에 계속 반영
+        position["atr"] = current_atr
+        position["atr_stop"] = atr_stop_price
+        symbol_state["position"] = position
 
-        atr_stop_price = (
-            first_entry
-            - STOP_ATR * saved_atr
-        )
-
-        # ATR 손절을 먼저 확인
+        # ATR 손절
         if current_price <= atr_stop_price:
             stage = "ATR SELL"
-
-            internal_score = (
-                calculate_internal_score(
-                    stage,
-                    trend_ok,
-                    rsi,
-                    volume_ratio
-                )
-            )
 
             return {
                 "symbol": symbol,
                 "stage": stage,
                 "price": current_price,
-                "internal_score": (
-                    internal_score
-                ),
-                "volume_ratio": (
+                "internal_score": calculate_internal_score(
+                    stage,
+                    trend_ok,
+                    rsi,
                     volume_ratio
                 ),
+                "volume_ratio": volume_ratio,
                 "new_position": None
             }
 
@@ -837,116 +722,110 @@ def finalize_signal(
         if current_price < prior_10_low:
             stage = "10D SELL"
 
-            internal_score = (
-                calculate_internal_score(
-                    stage,
-                    trend_ok,
-                    rsi,
-                    volume_ratio
-                )
-            )
-
             return {
                 "symbol": symbol,
                 "stage": stage,
                 "price": current_price,
-                "internal_score": (
-                    internal_score
-                ),
-                "volume_ratio": (
+                "internal_score": calculate_internal_score(
+                    stage,
+                    trend_ok,
+                    rsi,
                     volume_ratio
                 ),
+                "volume_ratio": volume_ratio,
                 "new_position": None
             }
 
-        # 추가 진입 BUY2~BUY4
+        # 최신 ATR을 이용한 다음 추가 진입 가격
         next_add_price = (
             last_entry
-            + ADD_UNIT_ATR * saved_atr
+            + ADD_UNIT_ATR * current_atr
         )
 
         if (
             units < MAX_UNITS
-            and current_price
-            >= next_add_price
+            and current_price >= next_add_price
         ):
             new_units = units + 1
             stage = f"BUY{new_units}"
+
+            # 추가 진입 후 최신 진입가 기준 새 손절가
+            added_unit_stop = (
+                current_price
+                - STOP_ATR * current_atr
+            )
+
+            # 손절가는 기존보다 낮아지지 않음
+            updated_stop = max(
+                atr_stop_price,
+                added_unit_stop
+            )
 
             new_position = {
                 "units": new_units,
                 "first_entry": first_entry,
                 "last_entry": current_price,
-                "atr": saved_atr,
-                "atr_stop": atr_stop_price
+                "atr": current_atr,
+                "atr_stop": updated_stop
             }
-
-            internal_score = (
-                calculate_internal_score(
-                    stage,
-                    trend_ok,
-                    rsi,
-                    volume_ratio
-                )
-            )
 
             return {
                 "symbol": symbol,
                 "stage": stage,
                 "price": current_price,
-                "internal_score": (
-                    internal_score
-                ),
-                "volume_ratio": (
+                "internal_score": calculate_internal_score(
+                    stage,
+                    trend_ok,
+                    rsi,
                     volume_ratio
                 ),
-                "new_position": (
-                    new_position
-                )
+                "volume_ratio": volume_ratio,
+                "new_position": new_position
             }
 
         return None
 
-    # -----------------------------------------------------
-    # 아직 진입하지 않은 종목
-    # -----------------------------------------------------
+    # =====================================================
+    # 아직 진입하지 않은 신규 종목
+    # =====================================================
+    if (
+        current_price < MIN_PRICE
+        or current_price > MAX_PRICE
+    ):
+        return None
+
     distance_to_high = (
-        (
-            prior_20_high
-            - current_price
-        )
+        (prior_20_high - current_price)
         / prior_20_high
         * 100
     )
 
     buy1 = (
-        previous_close
-        <= prior_20_high
-        and current_price
-        > prior_20_high
+        previous_close <= prior_20_high
+        and current_price > prior_20_high
         and trend_ok
     )
 
     ready = (
         not buy1
-        and 0
-        <= distance_to_high
-        <= READY_DISTANCE_PERCENT
+        and 0 <= distance_to_high <= READY_DISTANCE_PERCENT
         and trend_ok
     )
 
     if buy1:
         stage = "BUY1"
 
+        initial_stop = (
+            current_price
+            - STOP_ATR * current_atr
+        )
+
         new_position = {
             "units": 1,
             "first_entry": current_price,
             "last_entry": current_price,
-            "atr": atr,
-            "atr_stop": (
-                current_price
-                - STOP_ATR * atr
-            )
+            "atr": current_atr,
+            "atr_stop": initial_stop
         }
 
     elif ready:
@@ -956,124 +835,63 @@ def finalize_signal(
     else:
         return None
 
-    internal_score = (
-        calculate_internal_score(
-            stage,
-            trend_ok,
-            rsi,
-            volume_ratio
-        )
-    )
-
     return {
         "symbol": symbol,
         "stage": stage,
         "price": current_price,
-        "internal_score": (
-            internal_score
-        ),
-        "volume_ratio": (
+        "internal_score": calculate_internal_score(
+            stage,
+            trend_ok,
+            rsi,
             volume_ratio
         ),
+        "volume_ratio": volume_ratio,
         "new_position": new_position
     }
 
 
 # =========================================================
 # 중복 알림
+# 같은 단계는 다시 보내지 않음
 # =========================================================
-def can_send_alert(
-    result,
-    symbol_state
-):
-    stage = result["stage"]
-
+def can_send_alert(result, symbol_state):
     old_stage = symbol_state.get(
         "last_alert_stage",
         ""
     )
 
-    # 단계가 바뀌면 즉시 전송
-    if old_stage != stage:
-        return True
+    return old_stage != result["stage"]
 
-    last_time_text = symbol_state.get(
-        "last_alert_time",
-        ""
+
+def apply_result_to_state(result, symbol_state):
+    symbol_state["last_alert_stage"] = (
+        result["stage"]
     )
 
-    if not last_time_text:
-        return True
-
-    try:
-        last_time = datetime.fromisoformat(
-            last_time_text
-        )
-
-        now = datetime.now(
-            timezone.utc
-        )
-
-        elapsed_hours = (
-            now - last_time
-        ).total_seconds() / 3600
-
-        return (
-            elapsed_hours
-            >= ALERT_COOLDOWN_HOURS
-        )
-
-    except (
-        TypeError,
-        ValueError
-    ):
-        return True
-
-
-def apply_result_to_state(
-    result,
-    symbol_state
-):
-    symbol_state[
-        "last_alert_stage"
-    ] = result["stage"]
-
-    symbol_state[
-        "last_alert_time"
-    ] = datetime.now(
-        timezone.utc
-    ).isoformat()
+    symbol_state["last_alert_time"] = (
+        datetime.now(timezone.utc).isoformat()
+    )
 
     if result["stage"] in {
         "ATR SELL",
         "10D SELL"
     }:
-        symbol_state[
-            "position"
-        ] = None
+        symbol_state["position"] = None
 
-    elif result.get(
-        "new_position"
-    ) is not None:
-        symbol_state[
-            "position"
-        ] = result[
-            "new_position"
-        ]
+    elif result.get("new_position") is not None:
+        symbol_state["position"] = (
+            result["new_position"]
+        )
 
     return symbol_state
 
 
 # =========================================================
-# 텔레그램 메시지 한 번에 묶기
+# 텔레그램 묶음 메시지
 # =========================================================
 def format_group_message(results):
     now_kst = datetime.now(
-        timezone.utc
-    ).astimezone(
-        timezone(
-            pd.Timedelta(hours=9)
-        )
+        ZoneInfo("Asia/Seoul")
     )
 
     sections = [
@@ -1088,9 +906,7 @@ def format_group_message(results):
 
     lines = [
         "🇺🇸 US Stock Scanner",
-        now_kst.strftime(
-            "%Y-%m-%d %H:%M"
-        )
+        now_kst.strftime("%Y-%m-%d %H:%M")
     ]
 
     for title, stage in sections:
@@ -1118,13 +934,9 @@ def format_group_message(results):
 
 
 # =========================================================
-# 배치 스캔
+# 배치 분석
 # =========================================================
-def scan_batch(
-    symbols,
-    downloaded,
-    state
-):
+def scan_batch(symbols, downloaded, state):
     candidates = []
 
     for symbol in symbols:
@@ -1135,11 +947,9 @@ def scan_batch(
                 len(symbols)
             )
 
-            symbol_state = (
-                get_symbol_state(
-                    state,
-                    symbol
-                )
+            symbol_state = get_symbol_state(
+                state,
+                symbol
             )
 
             candidate = pre_analyze_symbol(
@@ -1149,9 +959,7 @@ def scan_batch(
             )
 
             if candidate:
-                candidates.append(
-                    candidate
-                )
+                candidates.append(candidate)
 
         except Exception as error:
             print(
@@ -1167,18 +975,12 @@ def scan_batch(
 # 메인
 # =========================================================
 def main():
-    print(
-        "US TURTLE SCANNER V3 START"
-    )
+    print("US TURTLE SCANNER V4 START")
 
     state = load_state()
+    symbols = get_stock_universe(state)
 
-    symbols = get_stock_universe()
-
-    print(
-        f"검색 종목 수: "
-        f"{len(symbols)}개"
-    )
+    print(f"검색 종목 수: {len(symbols)}개")
 
     all_candidates = []
 
@@ -1199,8 +1001,7 @@ def main():
         ]
 
         batch_number = (
-            start_index
-            // BATCH_SIZE
+            start_index // BATCH_SIZE
         ) + 1
 
         print(
@@ -1219,15 +1020,10 @@ def main():
                 state
             )
 
-            all_candidates.extend(
-                candidates
-            )
+            all_candidates.extend(candidates)
 
         except Exception as error:
-            print(
-                "배치 오류:",
-                error
-            )
+            print("배치 오류:", error)
 
         time.sleep(2)
 
@@ -1251,15 +1047,20 @@ def main():
                 f"{symbol} 실시간 확인"
             )
 
-            symbol_state = (
-                get_symbol_state(
-                    state,
-                    symbol
-                )
+            symbol_state = get_symbol_state(
+                state,
+                symbol
             )
 
             result = finalize_signal(
                 candidate,
+                symbol_state
+            )
+
+            # ATR이나 손절가가 갱신된 상태도 저장
+            save_symbol_state(
+                state,
+                symbol,
                 symbol_state
             )
 
@@ -1277,9 +1078,7 @@ def main():
                 )
                 continue
 
-            results.append(
-                result
-            )
+            results.append(result)
 
         except Exception as error:
             print(
@@ -1307,36 +1106,26 @@ def main():
                 item["stage"],
                 0
             ),
-            item[
-                "internal_score"
-            ],
-            item[
-                "volume_ratio"
-            ]
+            item["internal_score"],
+            item["volume_ratio"]
         ),
         reverse=True
     )
 
-    results = results[
-        :MAX_ALERTS_PER_RUN
-    ]
+    results = results[:MAX_ALERTS_PER_RUN]
 
     if results:
         for result in results:
             symbol = result["symbol"]
 
-            symbol_state = (
-                get_symbol_state(
-                    state,
-                    symbol
-                )
+            symbol_state = get_symbol_state(
+                state,
+                symbol
             )
 
-            symbol_state = (
-                apply_result_to_state(
-                    result,
-                    symbol_state
-                )
+            symbol_state = apply_result_to_state(
+                result,
+                symbol_state
             )
 
             save_symbol_state(
@@ -1345,13 +1134,8 @@ def main():
                 symbol_state
             )
 
-        message = format_group_message(
-            results
-        )
-
-        send_telegram_message(
-            message
-        )
+        message = format_group_message(results)
+        send_telegram_message(message)
 
         print(
             f"텔레그램 묶음 전송: "
@@ -1359,10 +1143,9 @@ def main():
         )
 
     else:
-        print(
-            "새로운 신호 없음"
-        )
+        print("새로운 신호 없음")
 
+    # 알림이 없어도 최신 ATR과 손절가 저장
     save_state(state)
 
     print(
