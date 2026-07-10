@@ -26,6 +26,7 @@ WATCHLIST = [
 ]
 
 MIN_PRICE = 5.0
+MAX_PRICE = 100.0
 MIN_AVG_VOLUME = 1_000_000
 
 # 같은 종목·같은 단계의 중복 알림 방지 시간
@@ -215,7 +216,7 @@ def analyze_symbol(symbol):
     else:
         return None
 
-    if current_price < MIN_PRICE:
+    if current_price < MIN_PRICE or current_price > MAX_PRICE:
         return None
 
     if not average_volume_ok and stage != "SELL":
