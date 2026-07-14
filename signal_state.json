@@ -53,7 +53,7 @@
       "units": 4,
       "first_entry": 53.31,
       "last_entry": 60.79,
-      "atr": 2.6893904715881596,
+      "atr": 2.6988904029236087,
       "atr_stop": 55.41121905682368
     }
   },
@@ -74,7 +74,7 @@
       "units": 1,
       "first_entry": 8.75,
       "last_entry": 8.75,
-      "atr": 0.3962062577353503,
+      "atr": 0.39920623103246944,
       "atr_stop": 7.966087488343996
     }
   },
@@ -111,19 +111,19 @@
       "units": 1,
       "first_entry": 6.17,
       "last_entry": 6.17,
-      "atr": 0.276759682044528,
+      "atr": 0.27950967346145916,
       "atr_stop": 5.61998066833587
     }
   },
   "BBY": {
-    "last_stage": "BUY1",
-    "last_time": "2026-07-10T15:36:44.495546+00:00",
+    "last_stage": "BUY2",
+    "last_time": "2026-07-14T19:59:23.781795+00:00",
     "position": {
-      "units": 1,
+      "units": 2,
       "first_entry": 82.13,
-      "last_entry": 82.13,
-      "atr": 2.5270826808208504,
-      "atr_stop": 77.21633451628799
+      "last_entry": 83.96,
+      "atr": 2.5605829707378427,
+      "atr_stop": 78.83883405852431
     }
   },
   "PD": {
@@ -200,14 +200,14 @@
     "position": null
   },
   "DK": {
-    "last_stage": "BUY3",
-    "last_time": "2026-07-14T16:23:17.888714+00:00",
+    "last_stage": "BUY4",
+    "last_time": "2026-07-14T19:59:23.781780+00:00",
     "position": {
-      "units": 3,
+      "units": 4,
       "first_entry": 56.09,
-      "last_entry": 59.46,
-      "atr": 2.510982521783167,
-      "atr_stop": 54.52253507850398
+      "last_entry": 60.9,
+      "atr": 2.5267324531186164,
+      "atr_stop": 55.84653509376277
     }
   },
   "CBSH": {
@@ -422,7 +422,7 @@
       "units": 1,
       "first_entry": 9.73,
       "last_entry": 9.73,
-      "atr": 0.19578452035983296,
+      "atr": 0.19653453752597067,
       "atr_stop": 9.338430959280334
     }
   },
@@ -594,6 +594,16 @@
   "ORC": {
     "last_stage": "",
     "last_time": "",
+    "position": null
+  },
+  "MNRO": {
+    "last_stage": "준비",
+    "last_time": "2026-07-14T19:59:23.781805+00:00",
+    "position": null
+  },
+  "VITL": {
+    "last_stage": "준비",
+    "last_time": "2026-07-14T19:59:23.781801+00:00",
     "position": null
   }
 }
