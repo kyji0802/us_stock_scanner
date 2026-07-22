@@ -1,13 +1,13 @@
 {
   "PAGP": {
-    "last_stage": "BUY3",
-    "last_time": "2026-07-20T15:17:05.762325+00:00",
+    "last_stage": "BUY4",
+    "last_time": "2026-07-22T17:58:50.126968+00:00",
     "position": {
-      "units": 3,
+      "units": 4,
       "first_entry": 25.48,
-      "last_entry": 26.0,
+      "last_entry": 26.25,
       "atr": 0.46372045020403524,
-      "atr_stop": 25.07255909959193
+      "atr_stop": 25.32255909959193
     }
   },
   "ACRS": {
@@ -68,7 +68,7 @@
       "units": 1,
       "first_entry": 8.75,
       "last_entry": 8.75,
-      "atr": 0.37856776517040497,
+      "atr": 0.37981774609691865,
       "atr_stop": 8.005902268815232
     }
   },
@@ -147,14 +147,14 @@
     "position": null
   },
   "FBP": {
-    "last_stage": "BUY3",
-    "last_time": "2026-07-22T16:51:10.303792+00:00",
+    "last_stage": "BUY4",
+    "last_time": "2026-07-22T17:58:50.126940+00:00",
     "position": {
-      "units": 3,
+      "units": 4,
       "first_entry": 27.04,
-      "last_entry": 28.11,
-      "atr": 0.5113987419582916,
-      "atr_stop": 27.087202516083416
+      "last_entry": 28.66,
+      "atr": 0.531898734328897,
+      "atr_stop": 27.596202531342207
     }
   },
   "EWTX": {
@@ -211,7 +211,7 @@
       "units": 1,
       "first_entry": 59.92,
       "last_entry": 59.92,
-      "atr": 1.0406977863857485,
+      "atr": 1.0431977482387758,
       "atr_stop": 57.85760467136913
     }
   },
@@ -296,7 +296,7 @@
       "units": 3,
       "first_entry": 21.67,
       "last_entry": 22.68,
-      "atr": 0.8630631193522805,
+      "atr": 0.874818108976304,
       "atr_stop": 20.954044610765425
     }
   },
@@ -333,7 +333,7 @@
       "units": 2,
       "first_entry": 44.42,
       "last_entry": 45.45,
-      "atr": 1.9465880103930147,
+      "atr": 1.9535879798754365,
       "atr_stop": 41.73597335226734
     }
   },
@@ -389,15 +389,9 @@
     "position": null
   },
   "HRB": {
-    "last_stage": "BUY2",
-    "last_time": "2026-07-16T16:45:23.916486+00:00",
-    "position": {
-      "units": 2,
-      "first_entry": 41.54,
-      "last_entry": 42.28,
-      "atr": 1.3703747734267258,
-      "atr_stop": 39.5822791148331
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-07-22T17:58:50.126980+00:00",
+    "position": null
   },
   "CNC": {
     "last_stage": "준비",
@@ -411,7 +405,7 @@
       "units": 1,
       "first_entry": 30.52,
       "last_entry": 30.52,
-      "atr": 1.1632606446114084,
+      "atr": 1.1712606369820138,
       "atr_stop": 28.2167948039669
     }
   },
@@ -422,7 +416,7 @@
       "units": 4,
       "first_entry": 9.73,
       "last_entry": 10.1,
-      "atr": 0.20595223554592218,
+      "atr": 0.20745222219448176,
       "atr_stop": 9.698095567055129
     }
   },
@@ -448,7 +442,7 @@
       "units": 1,
       "first_entry": 88.01,
       "last_entry": 88.01,
-      "atr": 1.9550279908230204,
+      "atr": 1.955528097634544,
       "atr_stop": 84.10244417094185
     }
   },
@@ -474,7 +468,7 @@
       "units": 2,
       "first_entry": 80.43,
       "last_entry": 82.48,
-      "atr": 3.020068423815088,
+      "atr": 3.034068362779932,
       "atr_stop": 76.44686312185225
     }
   },
@@ -520,15 +514,9 @@
     "position": null
   },
   "DXCM": {
-    "last_stage": "BUY2",
-    "last_time": "2026-07-16T15:11:27.723007+00:00",
-    "position": {
-      "units": 2,
-      "first_entry": 76.32,
-      "last_entry": 78.32,
-      "atr": 2.7890736496084574,
-      "atr_stop": 72.74185270078308
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-07-22T17:58:50.126985+00:00",
+    "position": null
   },
   "BRO": {
     "last_stage": "준비",
@@ -775,7 +763,7 @@
       "units": 3,
       "first_entry": 323.84,
       "last_entry": 334.18,
-      "atr": 7.858214525924017,
+      "atr": 7.8817145869591725,
       "atr_stop": 318.4895719247145
     }
   },
@@ -928,7 +916,7 @@
       "units": 1,
       "first_entry": 40.94,
       "last_entry": 40.94,
-      "atr": 1.8226616034090224,
+      "atr": 1.8296615728914443,
       "atr_stop": 37.30492314899601
     }
   },
@@ -948,14 +936,14 @@
     "position": null
   },
   "CLMT": {
-    "last_stage": "BUY1",
-    "last_time": "2026-07-20T20:11:48.079028+00:00",
+    "last_stage": "BUY2",
+    "last_time": "2026-07-22T17:58:50.126975+00:00",
     "position": {
-      "units": 1,
+      "units": 2,
       "first_entry": 43.44,
-      "last_entry": 43.44,
+      "last_entry": 44.21,
       "atr": 1.5029362347091721,
-      "atr_stop": 40.434127530581655
+      "atr_stop": 41.20412753058166
     }
   },
   "HAS": {
