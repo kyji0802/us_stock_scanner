@@ -577,7 +577,7 @@
       "units": 3,
       "first_entry": 325.32,
       "last_entry": 338.79,
-      "atr": 7.096888162062477,
+      "atr": 7.189386941359352,
       "atr_stop": 324.6756976129174
     }
   },
@@ -1035,7 +1035,7 @@
       "units": 1,
       "first_entry": 135.76,
       "last_entry": 135.76,
-      "atr": 7.575328697401289,
+      "atr": 7.583178581434492,
       "atr_stop": 120.60934260519741
     }
   },
@@ -1157,6 +1157,11 @@
     "position": null
   },
   "VIAV": {
+    "last_stage": "",
+    "last_time": "",
+    "position": null
+  },
+  "WSM": {
     "last_stage": "",
     "last_time": "",
     "position": null
