@@ -35,15 +35,9 @@
     "position": null
   },
   "PBF": {
-    "last_stage": "BUY4",
-    "last_time": "2026-07-14T18:46:05.168327+00:00",
-    "position": {
-      "units": 4,
-      "first_entry": 53.31,
-      "last_entry": 60.79,
-      "atr": 4.662841713950351,
-      "atr_stop": 55.41121905682368
-    }
+    "last_stage": "10D SELL",
+    "last_time": "2026-10-22T17:56:26.893514+00:00",
+    "position": null
   },
   "CRVS": {
     "last_stage": "",
@@ -61,14 +55,14 @@
     "position": null
   },
   "WK": {
-    "last_stage": "BUY1",
-    "last_time": "2026-10-20T17:53:26.354449+00:00",
+    "last_stage": "BUY2",
+    "last_time": "2026-10-22T17:56:26.893498+00:00",
     "position": {
-      "units": 1,
+      "units": 2,
       "first_entry": 79.65,
-      "last_entry": 79.65,
-      "atr": 3.218514051110481,
-      "atr_stop": 73.26082275357369
+      "last_entry": 84.47,
+      "atr": 3.257109176793713,
+      "atr_stop": 77.95578164641258
     }
   },
   "AEG": {
@@ -92,9 +86,15 @@
     "position": null
   },
   "BBY": {
-    "last_stage": "준비",
-    "last_time": "2026-10-21T17:59:17.521299+00:00",
-    "position": null
+    "last_stage": "BUY1",
+    "last_time": "2026-10-22T17:56:26.893507+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 98.85,
+      "last_entry": 98.85,
+      "atr": 3.0269497968837777,
+      "atr_stop": 92.79610040623244
+    }
   },
   "PD": {
     "last_stage": "ATR SELL",
@@ -298,9 +298,15 @@
     "position": null
   },
   "CNC": {
-    "last_stage": "준비",
-    "last_time": "2026-10-21T17:59:17.521295+00:00",
-    "position": null
+    "last_stage": "BUY1",
+    "last_time": "2026-10-22T17:56:26.893502+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 71.82,
+      "last_entry": 71.82,
+      "atr": 2.2393510983596494,
+      "atr_stop": 67.3412978032807
+    }
   },
   "TOST": {
     "last_stage": "10D SELL",
@@ -363,14 +369,14 @@
     "position": null
   },
   "WMG": {
-    "last_stage": "BUY2",
-    "last_time": "2026-10-16T17:17:03.479209+00:00",
+    "last_stage": "BUY3",
+    "last_time": "2026-10-22T17:56:26.893491+00:00",
     "position": {
-      "units": 2,
+      "units": 3,
       "first_entry": 30.31,
-      "last_entry": 31.32,
-      "atr": 0.8864177317557438,
-      "atr_stop": 29.588806378328638
+      "last_entry": 31.78,
+      "atr": 0.8565919966153083,
+      "atr_stop": 30.066816006769386
     }
   },
   "SPT": {
@@ -436,7 +442,7 @@
       "units": 4,
       "first_entry": 72.23,
       "last_entry": 76.52,
-      "atr": 1.9108087558737858,
+      "atr": 1.988929397873113,
       "atr_stop": 72.99102102645358
     }
   },
@@ -513,7 +519,7 @@
       "units": 2,
       "first_entry": 196.14,
       "last_entry": 198.64,
-      "atr": 3.882672431139628,
+      "atr": 3.81171234822949,
       "atr_stop": 191.07881260710755
     }
   },
@@ -538,9 +544,15 @@
     "position": null
   },
   "PNW": {
-    "last_stage": "준비",
-    "last_time": "2026-07-15T14:59:56.396068+00:00",
-    "position": null
+    "last_stage": "BUY1",
+    "last_time": "2026-10-22T17:56:26.893512+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 105.97,
+      "last_entry": 105.97,
+      "atr": 1.8348285525323893,
+      "atr_stop": 102.30034289493523
+    }
   },
   "PAYX": {
     "last_stage": "10D SELL",
@@ -580,8 +592,8 @@
       "units": 3,
       "first_entry": 189.98,
       "last_entry": 198.72,
-      "atr": 6.522697407520769,
-      "atr_stop": 186.03864712264468
+      "atr": 6.33017400837099,
+      "atr_stop": 186.05965198325802
     }
   },
   "SDRL": {
@@ -596,7 +608,7 @@
       "units": 4,
       "first_entry": 433.47,
       "last_entry": 475.45,
-      "atr": 15.284580907236185,
+      "atr": 15.990208902569718,
       "atr_stop": 445.7789650265621
     }
   },
@@ -607,8 +619,8 @@
       "units": 4,
       "first_entry": 325.32,
       "last_entry": 342.32,
-      "atr": 6.674172318992037,
-      "atr_stop": 329.0000711290714
+      "atr": 6.5783911557076955,
+      "atr_stop": 329.1632176885846
     }
   },
   "MAC": {
@@ -653,7 +665,7 @@
       "units": 4,
       "first_entry": 202.16,
       "last_entry": 212.27,
-      "atr": 8.557298082135441,
+      "atr": 8.844681260948523,
       "atr_stop": 201.1404042440327
     }
   },
@@ -729,7 +741,7 @@
       "units": 2,
       "first_entry": 48.06,
       "last_entry": 49.13,
-      "atr": 1.5310674399251716,
+      "atr": 1.550338379028317,
       "atr_stop": 46.12405040660672
     }
   },
@@ -739,14 +751,14 @@
     "position": null
   },
   "ACN": {
-    "last_stage": "BUY2",
-    "last_time": "2026-10-19T19:12:25.424705+00:00",
+    "last_stage": "BUY3",
+    "last_time": "2026-10-22T17:56:26.893495+00:00",
     "position": {
-      "units": 2,
+      "units": 3,
       "first_entry": 229.68,
-      "last_entry": 236.35,
-      "atr": 8.584988935041476,
-      "atr_stop": 219.1939516358076
+      "last_entry": 251.22,
+      "atr": 8.771527724446221,
+      "atr_stop": 233.67694455110757
     }
   },
   "CLMT": {
@@ -761,7 +773,7 @@
       "units": 3,
       "first_entry": 109.52,
       "last_entry": 114.0,
-      "atr": 2.876987311319537,
+      "atr": 2.974651119114075,
       "atr_stop": 108.24602537736092
     }
   },
@@ -818,7 +830,7 @@
       "units": 4,
       "first_entry": 82.27,
       "last_entry": 98.6,
-      "atr": 3.3250106709494456,
+      "atr": 3.288362261147109,
       "atr_stop": 93.2544075344306
     }
   },
@@ -879,7 +891,7 @@
       "units": 4,
       "first_entry": 160.11,
       "last_entry": 179.22,
-      "atr": 7.246001497276173,
+      "atr": 7.350681588718503,
       "atr_stop": 166.00663767754742
     }
   },
@@ -925,8 +937,8 @@
       "units": 1,
       "first_entry": 68.68,
       "last_entry": 68.68,
-      "atr": 2.6259321465864827,
-      "atr_stop": 63.46172882993296
+      "atr": 2.60447371239806,
+      "atr_stop": 63.471052575203885
     }
   },
   "LYV": {
@@ -941,8 +953,8 @@
       "units": 1,
       "first_entry": 54.89,
       "last_entry": 54.89,
-      "atr": 0.24828948821977545,
-      "atr_stop": 54.410250170746686
+      "atr": 0.235356239848694,
+      "atr_stop": 54.41928752030261
     }
   },
   "EFOR": {
@@ -1038,7 +1050,7 @@
       "units": 2,
       "first_entry": 41.29,
       "last_entry": 44.24,
-      "atr": 2.4923306078873644,
+      "atr": 2.504248455710631,
       "atr_stop": 39.25533878422527
     }
   },
@@ -1049,7 +1061,7 @@
       "units": 4,
       "first_entry": 28.25,
       "last_entry": 31.24,
-      "atr": 1.3197347914106934,
+      "atr": 1.288723307939557,
       "atr_stop": 28.765146467218305
     }
   },
@@ -1060,8 +1072,8 @@
       "units": 1,
       "first_entry": 55.42,
       "last_entry": 55.42,
-      "atr": 2.8064359991282153,
-      "atr_stop": 49.89577178476186
+      "atr": 2.735123285660968,
+      "atr_stop": 49.949753428678065
     }
   },
   "TWLO": {
@@ -1090,14 +1102,14 @@
     "position": null
   },
   "ISRG": {
-    "last_stage": "BUY2",
-    "last_time": "2026-10-19T19:12:25.424694+00:00",
+    "last_stage": "BUY3",
+    "last_time": "2026-10-22T17:56:26.893461+00:00",
     "position": {
-      "units": 2,
+      "units": 3,
       "first_entry": 426.67,
-      "last_entry": 433.22,
-      "atr": 11.045804879238782,
-      "atr_stop": 411.19459649088617
+      "last_entry": 443.4,
+      "atr": 12.614813634958312,
+      "atr_stop": 418.17037273008333
     }
   },
   "FORM": {
@@ -1146,9 +1158,15 @@
     "position": null
   },
   "PGR": {
-    "last_stage": "준비",
-    "last_time": "2026-09-14T21:59:34.735539+00:00",
-    "position": null
+    "last_stage": "BUY1",
+    "last_time": "2026-10-22T17:56:26.893505+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 228.51,
+      "last_entry": 228.51,
+      "atr": 5.315663195784087,
+      "atr_stop": 217.87867360843182
+    }
   },
   "HAL": {
     "last_stage": "준비",
@@ -1167,7 +1185,7 @@
       "units": 4,
       "first_entry": 32.75,
       "last_entry": 34.64,
-      "atr": 0.810417755635741,
+      "atr": 0.7964270107283461,
       "atr_stop": 33.069206121308966
     }
   },
