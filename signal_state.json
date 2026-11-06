@@ -55,15 +55,9 @@
     "position": null
   },
   "WK": {
-    "last_stage": "BUY3",
-    "last_time": "2026-10-26T19:07:21.955376+00:00",
-    "position": {
-      "units": 3,
-      "first_entry": 79.65,
-      "last_entry": 86.2,
-      "atr": 3.1464149791840015,
-      "atr_stop": 80.05496446797237
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-11-06T19:55:58.311172+00:00",
+    "position": null
   },
   "AEG": {
     "last_stage": "10D SELL",
@@ -92,7 +86,7 @@
       "units": 1,
       "first_entry": 100.83,
       "last_entry": 100.83,
-      "atr": 3.4230334913888565,
+      "atr": 3.5422130075031006,
       "atr_stop": 94.03288325112523
     }
   },
@@ -243,7 +237,7 @@
       "units": 1,
       "first_entry": 51.87,
       "last_entry": 51.87,
-      "atr": 1.8579947407786679,
+      "atr": 1.9769651562779673,
       "atr_stop": 48.15401051844266
     }
   },
@@ -263,9 +257,15 @@
     "position": null
   },
   "ELAN": {
-    "last_stage": "ATR SELL",
-    "last_time": "2026-08-06T15:21:23.863557+00:00",
-    "position": null
+    "last_stage": "BUY1",
+    "last_time": "2026-11-06T19:55:58.311157+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 25.95,
+      "last_entry": 25.95,
+      "atr": 0.8889763319102743,
+      "atr_stop": 24.17204733617945
+    }
   },
   "DLO": {
     "last_stage": "준비",
@@ -299,20 +299,14 @@
       "units": 2,
       "first_entry": 53.08,
       "last_entry": 55.18,
-      "atr": 1.689164940553747,
+      "atr": 1.7115712352535652,
       "atr_stop": 51.83301391837755
     }
   },
   "CNC": {
-    "last_stage": "BUY1",
-    "last_time": "2026-11-04T20:23:15.672253+00:00",
-    "position": {
-      "units": 1,
-      "first_entry": 76.55,
-      "last_entry": 76.55,
-      "atr": 2.92436746584568,
-      "atr_stop": 70.78210607635178
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-11-06T19:55:58.311176+00:00",
+    "position": null
   },
   "TOST": {
     "last_stage": "10D SELL",
@@ -341,7 +335,7 @@
       "units": 1,
       "first_entry": 73.21,
       "last_entry": 73.21,
-      "atr": 2.8782120407150487,
+      "atr": 3.3133560200656436,
       "atr_stop": 67.46168338753576
     }
   },
@@ -351,15 +345,9 @@
     "position": null
   },
   "IOT": {
-    "last_stage": "BUY1",
-    "last_time": "2026-10-23T17:50:47.584742+00:00",
-    "position": {
-      "units": 1,
-      "first_entry": 44.79,
-      "last_entry": 44.79,
-      "atr": 1.9988280491127917,
-      "atr_stop": 40.86749044994539
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-11-06T19:55:58.311190+00:00",
+    "position": null
   },
   "ADT": {
     "last_stage": "",
@@ -393,7 +381,7 @@
       "units": 1,
       "first_entry": 32.48,
       "last_entry": 32.48,
-      "atr": 0.8966065484011071,
+      "atr": 0.9244000030106123,
       "atr_stop": 30.691284899056996
     }
   },
@@ -545,7 +533,7 @@
       "units": 3,
       "first_entry": 123.37,
       "last_entry": 125.83,
-      "atr": 2.0651356356744213,
+      "atr": 2.2857597990440652,
       "atr_stop": 121.69972872865115
     }
   },
@@ -592,7 +580,7 @@
       "units": 4,
       "first_entry": 189.98,
       "last_entry": 205.36,
-      "atr": 7.247395678932926,
+      "atr": 7.457287890642238,
       "atr_stop": 192.51600575972256
     }
   },
@@ -613,30 +601,24 @@
       "units": 1,
       "first_entry": 352.74,
       "last_entry": 352.74,
-      "atr": 8.042382590271789,
+      "atr": 8.265451673218335,
       "atr_stop": 336.6614212803898
     }
   },
   "MAC": {
-    "last_stage": "BUY2",
-    "last_time": "2026-11-05T00:57:47.934756+00:00",
-    "position": {
-      "units": 2,
-      "first_entry": 25.59,
-      "last_entry": 25.9,
-      "atr": 0.5514782818478221,
-      "atr_stop": 24.798895314383646
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-11-06T19:55:58.311180+00:00",
+    "position": null
   },
   "ETR": {
-    "last_stage": "BUY1",
-    "last_time": "2026-10-29T18:55:25.488741+00:00",
+    "last_stage": "BUY2",
+    "last_time": "2026-11-06T19:55:58.311130+00:00",
     "position": {
-      "units": 1,
+      "units": 2,
       "first_entry": 109.7,
-      "last_entry": 109.7,
-      "atr": 2.071622428400813,
-      "atr_stop": 106.09727522792068
+      "last_entry": 110.97,
+      "atr": 2.0938060230270055,
+      "atr_stop": 106.78238795394599
     }
   },
   "TRP": {
@@ -676,7 +658,7 @@
       "units": 1,
       "first_entry": 45.59,
       "last_entry": 45.59,
-      "atr": 0.8829213749156736,
+      "atr": 0.9077116133406434,
       "atr_stop": 43.82640702835412
     }
   },
@@ -702,7 +684,7 @@
       "units": 2,
       "first_entry": 78.37,
       "last_entry": 79.79,
-      "atr": 1.7808454007656287,
+      "atr": 1.764112922311097,
       "atr_stop": 76.26378695759587
     }
   },
@@ -723,7 +705,7 @@
       "units": 2,
       "first_entry": 257.91,
       "last_entry": 268.2,
-      "atr": 9.280846474453897,
+      "atr": 9.348671447679344,
       "atr_stop": 249.6383070510922
     }
   },
@@ -769,8 +751,8 @@
       "units": 2,
       "first_entry": 260.94,
       "last_entry": 266.89,
-      "atr": 10.354140389044725,
-      "atr_stop": 246.46562483871662
+      "atr": 10.177887839418528,
+      "atr_stop": 246.53422432116292
     }
   },
   "CLMT": {
@@ -785,7 +767,7 @@
       "units": 4,
       "first_entry": 109.52,
       "last_entry": 117.23,
-      "atr": 2.932535261259722,
+      "atr": 3.0944583796833833,
       "atr_stop": 111.53362689160701
     }
   },
@@ -830,15 +812,9 @@
     "position": null
   },
   "HALO": {
-    "last_stage": "BUY4",
-    "last_time": "2026-08-07T14:17:10.799645+00:00",
-    "position": {
-      "units": 4,
-      "first_entry": 82.27,
-      "last_entry": 98.6,
-      "atr": 3.3146609630169968,
-      "atr_stop": 93.2544075344306
-    }
+    "last_stage": "10D SELL",
+    "last_time": "2026-11-06T19:55:58.311213+00:00",
+    "position": null
   },
   "WAB": {
     "last_stage": "ATR SELL",
@@ -867,7 +843,7 @@
       "units": 2,
       "first_entry": 57.46,
       "last_entry": 59.81,
-      "atr": 1.177964061500699,
+      "atr": 1.267512685285875,
       "atr_stop": 57.482239850394606
     }
   },
@@ -878,7 +854,7 @@
       "units": 3,
       "first_entry": 96.97,
       "last_entry": 105.3,
-      "atr": 2.4847838130408406,
+      "atr": 2.5816123543430893,
       "atr_stop": 100.34145318410518
     }
   },
@@ -889,7 +865,7 @@
       "units": 1,
       "first_entry": 117.23,
       "last_entry": 117.23,
-      "atr": 2.6041316745923946,
+      "atr": 2.69988154386401,
       "atr_stop": 112.02173665081521
     }
   },
@@ -910,7 +886,7 @@
       "units": 1,
       "first_entry": 30.64,
       "last_entry": 30.64,
-      "atr": 0.8845502833061963,
+      "atr": 0.915656622482243,
       "atr_stop": 28.870899433387606
     }
   },
@@ -920,9 +896,15 @@
     "position": null
   },
   "FISV": {
-    "last_stage": "준비",
-    "last_time": "2026-08-13T19:37:18.815402+00:00",
-    "position": null
+    "last_stage": "BUY1",
+    "last_time": "2026-11-06T19:55:58.311163+00:00",
+    "position": {
+      "units": 1,
+      "first_entry": 63.83,
+      "last_entry": 63.83,
+      "atr": 1.9862605759132905,
+      "atr_stop": 59.857478848173415
+    }
   },
   "DRI": {
     "last_stage": "ATR SELL",
@@ -955,15 +937,9 @@
     "position": null
   },
   "CBRL": {
-    "last_stage": "BUY3",
-    "last_time": "2026-10-29T18:55:25.488729+00:00",
-    "position": {
-      "units": 3,
-      "first_entry": 68.68,
-      "last_entry": 72.71,
-      "atr": 2.7840009499368956,
-      "atr_stop": 67.38564498733454
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-11-06T19:55:58.311186+00:00",
+    "position": null
   },
   "LYV": {
     "last_stage": "ATR SELL",
@@ -992,15 +968,9 @@
     "position": null
   },
   "M": {
-    "last_stage": "BUY1",
-    "last_time": "2026-11-04T20:23:15.672270+00:00",
-    "position": {
-      "units": 1,
-      "first_entry": 25.64,
-      "last_entry": 25.64,
-      "atr": 0.9074484156005789,
-      "atr_stop": 23.825103168798844
-    }
+    "last_stage": "ATR SELL",
+    "last_time": "2026-11-06T19:55:58.311209+00:00",
+    "position": null
   },
   "UNM": {
     "last_stage": "10D SELL",
@@ -1014,8 +984,8 @@
       "units": 4,
       "first_entry": 163.28,
       "last_entry": 164.69,
-      "atr": 0.5144220366271118,
-      "atr_stop": 163.67794480501135
+      "atr": 0.48654120238702303,
+      "atr_stop": 163.71691759522596
     }
   },
   "MWA": {
@@ -1075,7 +1045,7 @@
       "units": 2,
       "first_entry": 51.14,
       "last_entry": 57.42,
-      "atr": 1.9788247919074304,
+      "atr": 2.0665894670121294,
       "atr_stop": 53.46482103088769
     }
   },
@@ -1091,7 +1061,7 @@
       "units": 4,
       "first_entry": 28.25,
       "last_entry": 31.24,
-      "atr": 1.2866936363548989,
+      "atr": 1.4342661761828546,
       "atr_stop": 28.79299665455268
     }
   },
@@ -1132,7 +1102,7 @@
       "units": 4,
       "first_entry": 426.67,
       "last_entry": 455.94,
-      "atr": 14.243225546753322,
+      "atr": 14.850560784338427,
       "atr_stop": 431.7220657782713
     }
   },
@@ -1188,7 +1158,7 @@
       "units": 2,
       "first_entry": 228.51,
       "last_entry": 232.68,
-      "atr": 5.0879931640119676,
+      "atr": 5.340013844253711,
       "atr_stop": 222.70974871086094
     }
   },
@@ -1209,7 +1179,7 @@
       "units": 4,
       "first_entry": 32.75,
       "last_entry": 34.64,
-      "atr": 0.9797571500224909,
+      "atr": 0.9974058099662209,
       "atr_stop": 33.10284452377976
     }
   },
@@ -1230,7 +1200,7 @@
       "units": 4,
       "first_entry": 71.81,
       "last_entry": 74.87,
-      "atr": 1.67641300459876,
+      "atr": 1.733077090202364,
       "atr_stop": 71.98615645148047
     }
   },
@@ -1276,7 +1246,7 @@
       "units": 3,
       "first_entry": 249.49,
       "last_entry": 260.8,
-      "atr": 8.468925450900805,
+      "atr": 8.46230141105586,
       "atr_stop": 247.46115958097954
     }
   },
@@ -1343,6 +1313,11 @@
   "LOAR": {
     "last_stage": "",
     "last_time": "",
+    "position": null
+  },
+  "TBBB": {
+    "last_stage": "준비",
+    "last_time": "2026-11-06T19:55:58.311167+00:00",
     "position": null
   }
 }
